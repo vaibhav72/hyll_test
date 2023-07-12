@@ -39,6 +39,15 @@ class FeedView extends StatelessWidget {
                   child:
                       BlocBuilder<AdventureActionCubit, AdventureActionState>(
                     builder: (context, adventureActionState) {
+                      if (adventureState is AdventureLoading &&
+                          adventureState.adventureModel.data!.isEmpty) {
+                        return Loader();
+                      }
+
+                      if (adventureState.adventureModel.data!.isEmpty) {
+                        return Center(
+                            child: Text('Uh ohh No more adventures to show'));
+                      }
                       return Container(
                         child: Stack(
                           children: List.generate(
